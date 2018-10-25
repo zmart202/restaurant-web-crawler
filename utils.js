@@ -17,18 +17,44 @@ function getUrls(sheets) {
 
 function writeLinks(url, href, sheets) {
   return new Promise(function(resolve, reject) {
-    let adder = 0;
-    adder++;
     sheets.spreadsheets.values.append(
       {
-        spreadsheetId: "1NwRnT5iy6Ob-0v6qmDI0g5qUMkKiB1oJ_aK38tT9H7k",
-        range: `Sheet1!A1:C`,
-        valueInputOption: "USER_ENTERED",
+        spreadsheetId: "1pFLkJ--7qg9igFnaUrICqX5TEreMx1DnOAGzSqkI9R4",
+        range: `Sheet3!A1:C`,
+        valueInputOption: "RAW",
         insertDataOption: "INSERT_ROWS",
         resource: {
-          range: `Sheet1!A1:C`,
+          range: `Sheet3!A1:C`,
           majorDimension: "COLUMNS",
-          values: [[`${url}`], [`${href}`], [`${new Date()}`]]
+          values: [
+            [`${url}`],
+            [`${href}`],
+            [
+              `${new Date().getMonth()}/${new Date().getDate()}/${new Date().getFullYear()}`
+            ]
+          ]
+        }
+      },
+      (err, res) => {
+        if (err) reject("errrrrrroooor", err);
+        resolve(console.log(res.data));
+      }
+    );
+  });
+}
+
+function notFound(site) {
+  return new Promise(function(resolve, reject) {
+    sheets.spreadsheets.values.append(
+      {
+        spreadsheetId: "1pFLkJ--7qg9igFnaUrICqX5TEreMx1DnOAGzSqkI9R4",
+        range: `Sheet3!A1:A`,
+        valueInputOption: "RAW",
+        insertDataOption: "INSERT_ROWS",
+        resource: {
+          range: `Sheet3!A1:A`,
+          majorDimension: "COLUMNS",
+          values: [[`${site}`]]
         }
       },
       (err, res) => {
@@ -41,5 +67,6 @@ function writeLinks(url, href, sheets) {
 
 module.exports = {
   getUrls,
-  writeLinks
+  writeLinks,
+  notFound
 };

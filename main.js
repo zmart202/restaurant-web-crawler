@@ -11,7 +11,7 @@ const URL = require("url-parse");
 // } = require("./credentials").installed;
 // // const token = require("./token");
 const { depthFirstSearch } = require("./depth-first-search");
-const { getUrls, writeLinks } = require("./utils");
+const { getUrls, writeLinks, notFound } = require("./utils");
 
 // const oAuth2Client = new google.auth.OAuth2(
 //   client_id,
@@ -121,9 +121,11 @@ async function Scrape(auth) {
           if (href) {
             const hostname = new URL(href).hostname;
             if (hostname.includes("ezcater.com")) {
-              await writeLinks(s, href, sheets);
+              await writeLinks(url, href, sheets);
               console.log(`Found link: ${href} on ${url}`);
               counter++;
+            } else {
+              await notFound(s);
             }
           }
         }
