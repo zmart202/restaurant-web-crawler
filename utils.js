@@ -15,6 +15,31 @@ function getUrls(sheets) {
   });
 }
 
+function writeLinks(url, href, sheets) {
+  return new Promise(function(resolve, reject) {
+    let adder = 0;
+    adder++;
+    sheets.spreadsheets.values.append(
+      {
+        spreadsheetId: "1NwRnT5iy6Ob-0v6qmDI0g5qUMkKiB1oJ_aK38tT9H7k",
+        range: `Sheet1!A1:C`,
+        valueInputOption: "USER_ENTERED",
+        insertDataOption: "INSERT_ROWS",
+        resource: {
+          range: `Sheet1!A1:C`,
+          majorDimension: "COLUMNS",
+          values: [[`${url}`], [`${href}`], [`${new Date()}`]]
+        }
+      },
+      (err, res) => {
+        if (err) reject("errrrrrroooor", err);
+        resolve(console.log(res.data));
+      }
+    );
+  });
+}
+
 module.exports = {
-  getUrls
+  getUrls,
+  writeLinks
 };
