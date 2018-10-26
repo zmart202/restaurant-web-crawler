@@ -11,7 +11,7 @@ const URL = require("url-parse");
 // } = require("./credentials").installed;
 // // const token = require("./token");
 const { depthFirstSearch } = require("./depth-first-search");
-const { getUrls, writeLinks, notFound } = require("./utils");
+const { getUrls, writeLinks } = require("./utils");
 
 // const oAuth2Client = new google.auth.OAuth2(
 //   client_id,
@@ -103,6 +103,7 @@ function getNewToken(oAuth2Client, callback) {
 
 async function Scrape(auth) {
   const sheets = google.sheets({ version: "v4", auth });
+  console.log(sheets);
   try {
     // clear console
     process.stdout.write("\x1B[2J\x1B[0f");
@@ -125,7 +126,7 @@ async function Scrape(auth) {
               console.log(`Found link: ${href} on ${url}`);
               counter++;
             } else {
-              await notFound(s);
+              //await notFound(s, sheets);
             }
           }
         }

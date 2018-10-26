@@ -43,16 +43,16 @@ function writeLinks(url, href, sheets) {
   });
 }
 
-function notFound(site) {
+function notFound(site, sheets) {
   return new Promise(function(resolve, reject) {
     sheets.spreadsheets.values.append(
       {
         spreadsheetId: "1pFLkJ--7qg9igFnaUrICqX5TEreMx1DnOAGzSqkI9R4",
-        range: `Sheet3!A1:A`,
+        range: `Sheet4!A1:A`,
         valueInputOption: "RAW",
         insertDataOption: "INSERT_ROWS",
         resource: {
-          range: `Sheet3!A1:A`,
+          range: `Sheet4!A1:A`,
           majorDimension: "COLUMNS",
           values: [[`${site}`]]
         }
